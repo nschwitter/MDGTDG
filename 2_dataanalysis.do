@@ -1,6 +1,6 @@
 clear
 
-use "Data_Fourcountry_Main_20211007_anonymised_prepared.dta"
+use "Data_Fourcountry_Main_20220408_anonymised_prepared.dta"
 
 
 *****************
@@ -90,7 +90,7 @@ est sto churdletg_usa
 churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="usa", select(ladder rectgnone rectgmid rectghigh age male) ll(0)
 est sto churdletg_usasubj
 
-esttab churdledg_* churdletg_* using churdlecountries.rtf, scalars("ll Log likelihood") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 
+esttab churdledg_* churdletg_* using churdlecountries.rtf, scalars("ll Log likelihood" "aic AIC", "bic BIC") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 
 
 //cheking for seemingly unrelated regression
 suest churdledg_ger churdletg_ger
@@ -118,7 +118,7 @@ est sto churdletg
 churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male, select(ladder rectgnone rectgmid rectghigh age male) ll(0) vce(cluster country) 
 est sto churdletgsubj
 
-esttab churdledg* churdletg* using churdlemain_pooled.rtf, scalars("ll Log likelihood") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 	
+esttab churdledg* churdletg* using churdlemain_pooled.rtf, scalars("ll Log likelihood aic AIC bic BIC") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 	
 
 
 //seemingly unrelated regression

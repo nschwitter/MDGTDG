@@ -1,6 +1,6 @@
 clear
 
-use "Data_Fourcountry_Main_20211007_anonymised_prepared.dta"
+use "Data_Fourcountry_Main_20220408_anonymised_prepared.dta"
 
 *****************
 *** Dropping missing values
@@ -10,105 +10,56 @@ drop if percentkepttg==. | percentgivendg==.
 
 
 *******
-*** Compare AIC/BIC of final models
+*** Linear regressions
 *******
-churdle linear percentgivendg costat recdgnone recdgmid recdghigh age male if country=="germany", select(costat recdgnone recdgmid recdghigh age male) ll(0)
-estat ic
 reg percentgivendg costat recdgnone recdgmid recdghigh age male if country=="germany"
-estat ic
-
-churdle linear percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="germany", select(ladder recdgnone recdgmid recdghigh age male) ll(0)
 estat ic
 reg percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="germany"
 estat ic
 
-churdle linear percentgivendg costat recdgnone recdgmid recdghigh age male if country=="poland", select(costat recdgnone recdgmid recdghigh age male) ll(0)
-estat ic
 reg percentgivendg costat recdgnone recdgmid recdghigh age male if country=="poland"
-estat ic
-
-churdle linear percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="poland", select(ladder recdgnone recdgmid recdghigh age male) ll(0)
 estat ic
 reg percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="poland"
 estat ic
 
-churdle linear percentgivendg costat recdgnone recdgmid recdghigh age male if country=="sweden", select(costat recdgnone recdgmid recdghigh age male) ll(0)
-estat ic
 reg percentgivendg costat recdgnone recdgmid recdghigh age male if country=="sweden"
-estat ic
-
-churdle linear percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="sweden", select(ladder recdgnone recdgmid recdghigh age male) ll(0)
 estat ic
 reg percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="sweden"
 estat ic
 
-churdle linear percentgivendg costat recdgnone recdgmid recdghigh age male if country=="usa", select(costat recdgnone recdgmid recdghigh age male) ll(0)
-estat ic
 reg percentgivendg costat recdgnone recdgmid recdghigh age male if country=="usa"
-estat ic
-
-churdle linear percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="usa", select(ladder recdgnone recdgmid recdghigh age male) ll(0)
 estat ic
 reg percentgivendg ladder recdgnone recdgmid recdghigh age male if country=="usa"
 estat ic
 
-churdle linear percentgivendg costat recdgnone recdgmid recdghigh age male, select(costat recdgnone recdgmid recdghigh age male) ll(0) vce(cluster country)
-estat ic
-reg  percentgivendg costat recdgnone recdgmid recdghigh age male, vce(cluster country)
-estat ic
 
-churdle linear percentgivendg ladder recdgnone recdgmid recdghigh age male, select(ladder recdgnone recdgmid recdghigh age male) ll(0) vce(cluster country)
+reg  percentgivendg costat recdgnone recdgmid recdghigh age male, vce(cluster country)
 estat ic
 reg  percentgivendg ladder recdgnone recdgmid recdghigh age male, vce(cluster country)
 estat ic
 
 *Time dictator game
-churdle linear percentkepttg costat rectgnone rectgmid rectghigh age male if country=="germany", select(costat rectgnone rectgmid rectghigh age male) ll(0)
-estat ic
 reg  percentkepttg costat rectgnone rectgmid rectghigh age male if country=="germany"
-estat ic
-
-churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="germany", select(ladder rectgnone rectgmid rectghigh age male) ll(0)
 estat ic
 reg  percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="germany"
 estat ic
 
-churdle linear percentkepttg costat rectgnone rectgmid rectghigh age male if country=="poland", select(costat rectgnone rectgmid rectghigh age male) ll(0)
-estat ic
 reg  percentkepttg costat rectgnone rectgmid rectghigh age male if country=="poland"
-estat ic
-
-churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="poland", select(ladder rectgnone rectgmid rectghigh age male) ll(0)
 estat ic
 reg  percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="poland"
 estat ic
 
-churdle linear percentkepttg costat rectgnone rectgmid rectghigh age male if country=="sweden", select(costat rectgnone rectgmid rectghigh age male) ll(0)
-estat ic
 reg  percentkepttg costat rectgnone rectgmid rectghigh age male if country=="sweden"
-estat ic
-
-churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="sweden", select(ladder rectgnone rectgmid rectghigh age male) ll(0)
 estat ic
 reg  percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="sweden"
 estat ic
 
-churdle linear percentkepttg costat rectgnone rectgmid rectghigh age male if country=="usa", select(costat rectgnone rectgmid rectghigh age male) ll(0)
-estat ic
 reg  percentkepttg costat rectgnone rectgmid rectghigh age male if country=="usa"
-estat ic
-
-churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="usa", select(ladder rectgnone rectgmid rectghigh age male) ll(0)
 estat ic
 reg  percentkepttg ladder rectgnone rectgmid rectghigh age male if country=="usa"
 estat ic
 
-churdle linear percentkepttg costat rectgnone rectgmid rectghigh age male, select(costat rectgnone rectgmid rectghigh age male) ll(0) vce(cluster country) 
-estat ic
 reg  percentkepttg costat rectgnone rectgmid rectghigh age male, vce(cluster country) 
-estat ic
-
-churdle linear percentkepttg ladder rectgnone rectgmid rectghigh age male, select(ladder rectgnone rectgmid rectghigh age male) ll(0) vce(cluster country) 
 estat ic
 reg  percentkepttg ladder rectgnone rectgmid rectghigh age male, vce(cluster country) 
 estat ic
@@ -167,7 +118,7 @@ foreach i of local land {
 		churdle linear percentgivendg costatedusiops recdgnone recdgmid recdghigh age male if country == `"`i'"', select(costatedusiops recdgnone recdgmid recdghigh age male) ll(0) 
 		est sto rob_`i'_dg_ostatedusio
 	}
-	churdle linear percentgivendg ostateduincome recdgnone recdgmid recdghigh age male if country == `"`i'"', select(ostateduincome recdgnone recdgmid recdghigh age male) ll(0) 
+	churdle linear percentgivendg costateduincome recdgnone recdgmid recdghigh age male if country == `"`i'"', select(costateduincome recdgnone recdgmid recdghigh age male) ll(0) 
 	est sto rob_`i'_dg_ostateduinc
 
 	if `"`i'"'!="sweden" { 
@@ -273,3 +224,73 @@ est sto rob_tg_income2
 esttab rob_dg_*  using robustdg.rtf, scalars("ll Log likelihood") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 
 esttab rob_tg_* using robusttg.rtf, scalars("ll Log likelihood") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 
 	
+	
+******
+** Checking for interactions
+******	
+//make low receiver to reference category
+gen receiverdg2 = receiverdg
+replace receiverdg2 = 0 if receiverdg==1
+replace receiverdg2 = 1 if receiverdg==0
+
+gen receivertg2 = receivertg
+replace receivertg2 = 0 if receivertg==1
+replace receivertg2 = 1 if receivertg==0
+
+
+//mdg
+churdle linear percentgivendg c.costat##i.receiverdg2 age male, select(c.costat##i.receiverdg2 age male) ll(0) vce(cluster country)
+est sto interaction_mdg_1
+churdle linear percentgivendg c.ladder##i.receiverdg2 age male, select(c.ladder##i.receiverdg2 age male) ll(0) vce(cluster country)
+est sto interaction_mdg_2
+
+churdle linear percentgivendg c.costat##i.receiverdg2 age male if country=="germany", select(c.costat##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_ger1
+churdle linear percentgivendg c.ladder##i.receiverdg2 age male if country=="germany", select(c.ladder##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_ger2
+
+churdle linear percentgivendg c.costat##i.receiverdg2 age male if country=="poland", select(c.costat##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_pol1
+churdle linear percentgivendg c.ladder##i.receiverdg2 age male if country=="poland", select(c.ladder##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_pol2
+
+churdle linear percentgivendg c.costat##i.receiverdg2 age male if country=="usa", select(c.costat##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_usa1
+churdle linear percentgivendg c.ladder##i.receiverdg2 age male if country=="usa", select(c.ladder##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_usa2
+
+churdle linear percentgivendg c.costat##i.receiverdg2 age male if country=="sweden", select(c.costat##i.receiverdg2 age male) ll(0) 
+est sto interaction_mdg_swe1
+churdle linear percentgivendg c.ladder##i.receiverdg2 age male if country=="sweden", select(c.ladder##i.receiverdg2 age male) ll(0)
+est sto interaction_mdg_swe2
+
+//tdg
+churdle linear percentkepttg c.costat##i.receivertg2 age male, select(c.costat##i.receivertg2 age male) ll(0) vce(cluster country)
+est sto interaction_tdg_1
+churdle linear percentkepttg c.ladder##i.receivertg2 age male, select(c.ladder##i.receivertg2 age male) ll(0) vce(cluster country)
+est sto interaction_tdg_2
+
+churdle linear percentkepttg c.costat##i.receivertg2 age male if country=="germany", select(c.costat##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_ger1
+churdle linear percentkepttg c.ladder##i.receivertg2 age male if country=="germany", select(c.ladder##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_ger2
+
+churdle linear percentkepttg c.costat##i.receivertg2 age male if country=="poland", select(c.costat##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_pol1
+churdle linear percentkepttg c.ladder##i.receivertg2 age male if country=="poland", select(c.ladder##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_pol2
+
+churdle linear percentkepttg c.costat##i.receivertg2 age male if country=="usa", select(c.costat##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_usa1
+churdle linear percentkepttg c.ladder##i.receivertg2 age male if country=="usa", select(c.ladder##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_usa2
+
+churdle linear percentkepttg c.costat##i.receivertg2 age male if country=="sweden", select(c.costat##i.receivertg2 age male) ll(0) 
+est sto interaction_tdg_swe1
+churdle linear percentkepttg c.ladder##i.receivertg2 age male if country=="sweden", select(c.ladder##i.receivertg2 age male) ll(0)
+est sto interaction_tdg_swe2
+
+
+//export
+esttab interaction_mdg_* using interaction_mdg.rtf, scalars("ll Log likelihood" "aic AIC" "bic BIC") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 
+esttab interaction_tdg_* using interaction_tdg.rtf, scalars("ll Log likelihood" "aic AIC" "bic BIC") onecell label starlevels(+ 0.10 * 0.05 ** 0.01 *** 0.001) replace 	
