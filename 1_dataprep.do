@@ -1,6 +1,6 @@
 clear
 
-use "Data_Fourcountry_Main_20211007_anonymised.dta"
+use "Data_Fourcountry_Main_20220408_anonymised.dta"
 set seed 1199552211 
 
 ********
@@ -76,8 +76,8 @@ replace isced=5 if QID538_4==1 | QID538_3==1 | /// Hochschulkategorien
 replace isced = 6 if QID546_9==1 | QID547 == 9
 
 
-//country specific variables for imputation
-gen useducation = QID65
+//country suseducationpecific variables for imputation
+gen  = QID65
 replace useducation = QID540 if QID65==10
 
 gen poleducation = QID541
@@ -241,16 +241,16 @@ center siops2, gen(csiops2) stand
 center siops, gen(csiops) stand
 
 gen ostatall = (cincomedeciles + ceducation + csiops2)/3 if !missing(cincomedeciles, ceducation , csiops2)
-center ostatall, standardize gen(costatall)
+bysort country:  center ostatall, standardize gen(costatall)
 
 gen ostateduincome = (cincomedeciles + ceducation)/3 if !missing(cincomedeciles, ceducation) 
-center ostateduincome, standardize gen(costateduincome)	
+bysort country: center ostateduincome, standardize gen(costateduincome)	
 
 gen ostatedusiops = (ceducation + csiops2)/3 if !missing(ceducation , csiops2)
-center ostatedusiops, standardize gen(costatedusiops)
+bysort country:  center ostatedusiops, standardize gen(costatedusiops)
 
 gen ostatincomesiops = (cincomedeciles + csiops2)/3 if !missing(cincomedeciles, csiops2)
-center ostatincomesiops, standardize gen(costatincomesiops)
+bysort country: center ostatincomesiops, standardize gen(costatincomesiops)
 
 gen ostat = ostatall
 replace ostat = ostateduincome if ostat==. 
@@ -346,11 +346,6 @@ label var eqincomedecile "Income deciles (no imputations)"
 
 label var siops2 "Job prestige"
 label var siops "Job prestige (no imputations)"
-
-label var ostatall "Social status (composite: education, income and job prestige)"
-label var ostatincomesiops "Social status (composite: income and job prestige)"
-label var ostatedusiops "Social status (composite: education and job prestige)"
-label var ostateduincome "Social status (composite: education and income)"
 
 label var costatall "Social status (composite: education, income and job prestige)"
 label var costatincomesiops "Social status (composite: income and job prestige)"
