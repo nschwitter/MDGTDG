@@ -353,4 +353,4 @@ label var costatedusiops "Social status (composite: education and job prestige)"
 label var costateduincome "Social status (composite: education and income)"
 
 
-save "Data_Fourcountry_Main_20211007_anonymised_prepared.dta", replace
+save "Data_Fourcountry_Main_20220408_anonymised_prepared.dta", replace
